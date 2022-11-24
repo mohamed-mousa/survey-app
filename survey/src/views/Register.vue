@@ -56,8 +56,8 @@
 
 <script setup>
 import { reactive, ref } from 'vue';
-import axios from 'axios'
 import {useAuthStore} from '@/stores/auth'
+import api from '@/axios'
 import router from '@/router/index'
 import Toast from '@/components/Toast.vue'
 import Btn from '@/components/Button.vue'
@@ -74,13 +74,13 @@ const message = ref(null)
 const store = useAuthStore()
 
 async function register() {
-  loading.value = true
   try {
-    const response = await axios.post('register', user)
+    loading.value = true
+    const response = await api.post('register', user)
+    loading.value = false
     toast.value = 'success'
     message.value = 'Your registration completed successfully'
     store.setUser(response.data)
-    loading.value = false
     router.push({ name: "Dashboard" })
   } catch (error) {
     loading.value = false

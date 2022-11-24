@@ -7,12 +7,11 @@ export const useAuthStore = defineStore('auth', () => {
   const user = ref(JSON.parse(localStorage.getItem('user')) || null)
   const token = ref(localStorage.getItem('token') || null)
 
-  function logout() {
+  function logoutUser() {
     localStorage.removeItem('user')
     localStorage.removeItem('token')
     this.user = null
     this.token = null
-    router.push({ name: "Login" })
   }
 
   function setUser(data) {
@@ -26,5 +25,5 @@ export const useAuthStore = defineStore('auth', () => {
 
   }
 
-  return { user, logout, token, router, setUser }
+  return { user, logoutUser, token, setUser }
 })
