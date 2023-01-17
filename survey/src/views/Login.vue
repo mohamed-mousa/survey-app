@@ -59,6 +59,7 @@ const toast = ref('')
 const message = ref(null)
 const store = useAuthStore()
 
+// login user 
 async function login() {
   loading.value = true
   try {

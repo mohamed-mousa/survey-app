@@ -37,6 +37,7 @@ class AuthController extends Controller
         ]);
     }
 
+    // user login
     public function login(Request $request)
     {
         $data = $request->validate([
@@ -64,6 +65,7 @@ class AuthController extends Controller
         ]);
     }
 
+    // user logout
     public function logout()
     {
         $user = Auth::user();

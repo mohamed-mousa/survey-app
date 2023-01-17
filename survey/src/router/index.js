@@ -3,6 +3,7 @@ import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
 import Dashboard from '@/views/Dashboard.vue'
 import Surveys from '@/views/Surveys.vue'
+import Survey from '@/views/Survey.vue'
 import authLayout from '@/components/authLayout.vue'
 import guestLayout from '@/components/guestLayout.vue'
 import {useAuthStore} from '@/stores/auth'
@@ -16,7 +17,9 @@ const router = createRouter({
       meta: {requiresAuth: true},
       children: [
         {path: '/dashboard', name: 'Dashboard', component: Dashboard, },
-        {path: '/surveys', name: 'Surveys', component: Surveys, }
+        {path: '/surveys', name: 'Surveys', component: Surveys, },
+        {path: '/surveys/create', name: 'Create', component: Survey, },
+        {path: '/surveys/:id', name: 'Show', component: Survey, },
       ]
     },
     {
