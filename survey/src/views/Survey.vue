@@ -4,6 +4,8 @@ import QuestionEditor from "@/components/editor/QuestionEditor.vue";
 import { useRoute } from "vue-router";
 import { useSurveyStore } from "@/stores/survey";
 import { ref } from "vue";
+import { v4 as uuidv4 } from "uuid";
+
 const store = useSurveyStore();
 const route = useRoute();
 const survey = ref({
@@ -17,6 +19,31 @@ const survey = ref({
 
 if (route.params.id) {
   survey.value = store.surveys.find((s) => s.id == route.params.id);
+}
+
+function addQuestion(index) {
+  const newQuestion = {
+    id: uuidv4(),
+    type: "text",
+    question: "",
+    description: null,
+    data: {},
+  };
+
+  survey.value.questions.splice(index, 0, newQuestion);
+}
+
+function deleteQuestion(question) {
+  survey.value.questions = survey.value.questions.filter((q) => q !== question);
+}
+
+function questionChange(question) {
+  survey.value.questions = survey.value.questions.map((q) => {
+    if (q.id === question.id) {
+      return JSON.parse(JSON.stringify(question));
+    }
+    return q;
+  });
 }
 </script>
 <template>

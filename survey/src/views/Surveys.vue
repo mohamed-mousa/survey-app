@@ -10,6 +10,7 @@ function deleteSurvey(survey) {
     console.log("🚀 ~ file: Surveys.vue:9 ~ deleteSurvey ~ survey", survey);
   }
 }
+
 </script>
 <template>
   <auth-header>

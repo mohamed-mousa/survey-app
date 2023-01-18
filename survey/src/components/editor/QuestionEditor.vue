@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
+import { v4 as uuidv4 } from "uuid";
 import { useSurveyStore } from "@/stores/survey";
 
 const store = useSurveyStore();
@@ -52,6 +53,16 @@ function dataChange() {
   if (!shouldHaveOptions()) {
     delete data.data.options;
   }
+
+  emit("change", data);
+}
+
+function addQuestion() {
+  emit("addQuestion", props.index + 1);
+}
+
+function deleteQuestion() {
+  emit("deleteQuestion", props.question);
 }
 </script>
 <template>
@@ -76,7 +87,7 @@ function dataChange() {
         <!-- delete question -->
         <button
           type="button"
-          @click="addQuestion"
+          @click="deleteQuestion"
           class="flex justify-center rounded-md border border-transparent bg-red-600 py-1 px-2 items-center text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
         >
           <fa icon="trash-alt" class="me-2" />
@@ -91,17 +102,17 @@ function dataChange() {
       <!-- question -->
       <div class="mt-3 col-span-9">
         <label
-          :for="'question_text_' + survey.data"
+          :for="'question_text_' + survey.question"
           class="block text-sm font-medium text-gray-700"
           >Question Text</label
         >
         <input
           type="text"
-          :name="'question_text_' + survey.data"
-          :id="'question_text_' + survey.data"
+          :name="'question_text_' + survey.question"
+          :id="'question_text_' + survey.question"
           autocomplete="title"
           @change="dataChange"
-          v-model="survey.data"
+          v-model="survey.question"
           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         />
       </div>
