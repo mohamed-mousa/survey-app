@@ -2,6 +2,7 @@
 import authHeader from "@/components/AuthHeader.vue";
 import QuestionEditor from "@/components/editor/QuestionEditor.vue";
 import { useRoute } from "vue-router";
+import router from "@/router/index";
 import { useSurveyStore } from "@/stores/survey";
 import { ref } from "vue";
 import { v4 as uuidv4 } from "uuid";
@@ -44,6 +45,10 @@ function questionChange(question) {
     }
     return q;
   });
+}
+
+function saveSurvey() {
+  store.saveSurvey(survey.value);
 }
 </script>
 <template>

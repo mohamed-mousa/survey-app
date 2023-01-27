@@ -31,9 +31,9 @@ class StoreSurveyRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'require|string|max:100',
+            'title' => 'required|string|max:100',
             'user_id' => 'exists:users,id',
-            'status' => 'require|boolean',
+            'status' => 'required|boolean',
             'description' => 'nullable|string',
             'expire_at' => 'nullable|date|after:tomorrow',
         ];

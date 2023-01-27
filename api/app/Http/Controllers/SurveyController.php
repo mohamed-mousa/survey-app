@@ -30,6 +30,7 @@ class SurveyController extends Controller
      */
     public function store(StoreSurveyRequest $request)
     {
+        return $request;
         $result = Survey::create($request->validated());
 
         return new SurveyResource($result);

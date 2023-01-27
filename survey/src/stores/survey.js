@@ -1,6 +1,7 @@
 import { ref, reactive } from "vue";
 import { defineStore } from "pinia";
 import router from "@/router/index";
+import api from '@/axios'
 
 export const useSurveyStore = defineStore("survey", () => {
   const surveys = reactive([
@@ -142,5 +143,25 @@ export const useSurveyStore = defineStore("survey", () => {
 
   const questionTypes = ["text", "textarea", "select", "radio", "checkbox"];
 
-  return { surveys, questionTypes };
+  async function saveSurvey(survey) {
+    let response;
+    if (survey.id) {
+      response = await api.put(`survey/${survey.id}`, survey)
+      surveys = response.data.data
+    } else {
+      response = await api.post('survey', survey)
+      surveys = surveys.map((s) => {
+        if (s.id === survey.data.id) {
+          return survey.data
+        }
+        return s
+      })
+    }
+
+    router.push({ name: "Show", params: { id: response.data.data.id } })
+
+
+  }
+
+  return { surveys, questionTypes, saveSurvey };
 });
